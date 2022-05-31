@@ -14,7 +14,7 @@ module.exports = {
             .setDescription('HEX color for the new role.')
             .setRequired(true)),
     async execute(interaction) {
-        const newRoleName = interaction.options.getString('role');
+        const newRoleName = interaction.options.getString('name');
         const newRoleColor = interaction.options.getString('hex');
         const currentUser = interaction.guild.client.user;
 
