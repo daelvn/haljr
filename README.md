@@ -6,7 +6,7 @@ Discord bot for YYHY^3
 
 Create a `config.json` file.
 
-````json
+```json
 {
 	"token": "your-token-goes-here"
 }
