@@ -35,6 +35,6 @@ module.exports = {
             .setColor(`#${newRoleColor}`)
             .setTitle("A new role has been created!")
             .setDescription(`Created role ${newRoleName} with color #${newRoleColor}`);
-        await interaction.reply({ ephemeral: true, embeds: [replyEmbed] });
+        await interaction.reply({ embeds: [replyEmbed] });
     },
 };
