@@ -8,6 +8,8 @@ exec("git config pull.rebase false", (err, stdout, stderr) => {
     console.log(`${stdout}`);
 });
 
+// comment
+
 exec("git pull origin main --force", (err, stdout, stderr) => {
     if (err) {
         console.error(`exec error: ${err}`);
