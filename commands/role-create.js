@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -17,6 +17,11 @@ module.exports = {
         const newRoleName = interaction.options.getString('name');
         const newRoleColor = interaction.options.getString('hex');
         const currentUser = interaction.guild.client.user;
+
+        if (!interaction.memberPermissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
+            await interaction.reply("You do not have permissions to execute this command! (Manage Roles)");
+            return;
+        }
 
         // create role
         interaction.guild.roles.create({
