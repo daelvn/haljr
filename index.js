@@ -30,7 +30,9 @@ for (const file of modelFiles) {
     const filePath = path.join(modelsPath, file);
     const model = require(filePath);
 
-    client.models.set(model.data.name, sql.define(model.data.name.toLowerCase(), model.data.schema))
+    let sqldef = sql.define(model.data.name.toLowerCase(), model.data.schema);
+    console.log(`Adding model: ${model.data.name} -> ${typeof sqldef}`);
+    client.models.set(model.data.name, sqldef);
 }
 
 // Add a commands collection

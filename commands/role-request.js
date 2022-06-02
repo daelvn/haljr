@@ -19,6 +19,10 @@ module.exports = {
 
         // create role request
         try {
+            console.log("Model list: ");
+            for (const [k, v] in interaction.client.models) {
+                console.log(k, v);
+            }
             const rolereq = await interaction.client.models.RoleRequests.create({
                 name: roleName,
                 hex: roleColor,
@@ -32,7 +36,7 @@ module.exports = {
                 .setDescription(`Requested role ${rolereq.name} with color #${rolereq.hex}`);
             await interaction.reply({ embeds: [replyEmbed] });
         } catch (error) {
-            await interaction.reply('Something went wrong with the role request.');
+            await interaction.reply(`Something went wrong with the role request. ${error.name}: ${error.message}`);
         }
     },
 };
