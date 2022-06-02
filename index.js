@@ -2,12 +2,36 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
+// Sequelize
+const Sequelize = require('sequelize');
+
 // Require the necessary discord.js classes
 const { Client, Intents, Collection } = require('discord.js');
 const { token } = require('./config.json');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+
+// Connect a database
+const sql = new Sequelize('database', 'user', 'password', {
+    host: 'localhost',
+    dialect: 'sqlite',
+    logging: false,
+    // SQLite only
+    storage: 'yyhy.sqlite',
+});
+
+// Instantiate all models
+client.models = new Collection();
+const modelsPath = path.join(__dirname, 'models');
+const modelFiles = fs.readdirSync(modelsPath).filter(file => file.endsWith('.js'));
+
+for (const file of modelFiles) {
+    const filePath = path.join(modelsPath, file);
+    const model = require(filePath);
+
+    client.models.set(model.data.name, sql.define(model.data.name.toLowerCase(), model.data.schema))
+}
 
 // Add a commands collection
 client.commands = new Collection();
