@@ -31,8 +31,9 @@ for (const file of modelFiles) {
     const model = require(filePath);
 
     let sqldef = sql.define(model.data.name.toLowerCase(), model.data.schema);
-    console.log(`Adding model: ${model.data.name} -> ${typeof sqldef}`);
+    console.log(`Adding model: ${model.data.name} -> ${typeof sqldef} (${typeof sql})`);
     client.models.set(model.data.name, sqldef);
+    console.log(`Set: ${model.data.name} = ${client.models.get(model.data.name)}`);
 }
 
 // Add a commands collection
