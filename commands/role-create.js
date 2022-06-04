@@ -12,10 +12,11 @@ module.exports = {
         .addStringOption(option =>
             option.setName('hex')
             .setDescription('HEX color for the new role.')
-            .setRequired(true)),
+        ),
     async execute(interaction) {
         const newRoleName = interaction.options.getString('name');
-        const newRoleColor = interaction.options.getString('hex');
+        let newRoleColor = interaction.options.getString('hex');
+        if (newRoleColor == null) { newRoleColor = "DEFAULT"; }
         const currentUser = interaction.guild.client.user;
 
         if (!interaction.memberPermissions.has(Permissions.FLAGS.MANAGE_ROLES)) {
@@ -24,10 +25,12 @@ module.exports = {
         }
 
         // create role
+
         interaction.guild.roles.create({
                 name: newRoleName,
                 color: newRoleColor,
                 hoist: true,
+                mentionable: true,
                 reason: "Created by YYHY^3 Admins",
                 // position:
                 position: interaction.guild.roles.botRoleFor(currentUser).position - 1
