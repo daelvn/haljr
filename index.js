@@ -5,9 +5,15 @@ const path = require('node:path');
 // Sequelize
 const Sequelize = require('sequelize');
 
+// Dates
+const dayjs = require('dayjs');
+
+// Node scheduler
+const schedule = require('node-schedule');
+
 // Require the necessary discord.js classes
 const { Client, Intents, Collection } = require('discord.js');
-const { token } = require('./config.json');
+const { token, guildId } = require('./config.json');
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -35,6 +41,10 @@ for (const file of modelFiles) {
     client.models.set(model.data.name, sqldef);
     console.log(`Set: ${model.data.name} = ${client.models.get(model.data.name)}`);
 }
+
+// Globalize scheduler
+client.schedule = schedule;
+client.scheduled = new Collection();
 
 // Add a commands collection
 client.commands = new Collection();
