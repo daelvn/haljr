@@ -15,12 +15,13 @@ module.exports = {
     async execute(interaction) {
         const dateString = interaction.options.getString('date');
         const date = dayjs(dateString, 'MMMM D');
-        const Birthdays = interaction.client.models.get('RoleRequests');
+        const Birthdays = interaction.client.models.get('Birthdays');
 
         // find if day is valid
         if (!date.isValid()) {
             return interaction.reply("The date is in the wrong format!");
         }
+
         // add to the database
         try {
             const birthday = await Birthdays.create({
@@ -34,6 +35,31 @@ module.exports = {
             return interaction.reply('Something went wrong with adding a birthday. ' + error.message);
         }
         // setup trigger
+        var scheduleTrigger = async fired => {
+            console.log("Event fired!", fired);
+            const now = dayjs();
+            if ((now.month() == date.month()) && (now.date() == date.date())) {
+                // get birthday user
+                const birthdayUser = interaction.user;
+                // rename channel
+                const birthdayChannel = interaction.guild.channels.cache.resolve('982752381265670154');
+                birthdayChannel.setName(`happy-birthday-${birthdayUser.username}`)
+                    .then(newChannel => console.log(`Channel's new name is ${newChannel.name}`))
+                    .catch(console.error);
+                // post in announcements
+                const announcementsChannel = interaction.guild.channels.resolve('982755821870010508');
+                const announcementEmbed = new MessageEmbed()
+                    .setColor(`#000000`)
+                    .setTitle("It is someone's birthday!")
+                    .setDescription(`Everyone go wish <@${birthdayUser.id}> a happy birthday!`);
+                await announcementsChannel.send({ embeds: [announcementEmbed] });
+            }
+        }
+        scheduleTrigger(dayjs()); // temporary trigger for testing
+
+        const job = interaction.client.schedule.scheduleJob("0 0 * * *", scheduleTrigger);
+
         // reply back
+        return interaction.reply("The birthday has been set!");
     },
 };
