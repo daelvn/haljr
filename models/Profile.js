@@ -3,13 +3,17 @@ const Sequelize = require("sequelize");
 
 module.exports = {
   data: {
-    name: "Birthdays",
+    name: "Profiles",
     schema: {
       user: {
         type: Sequelize.STRING,
         unique: true,
       },
-      date: Sequelize.STRING,
+      genders: Sequelize.STRING,
+      sexualities: Sequelize.STRING,
+      pronouns: Sequelize.STRING,
+      flags: Sequelize.TEXT,
+      kins: Sequelize.TEXT,
     },
   },
 };
