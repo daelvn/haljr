@@ -14,6 +14,7 @@ module.exports = {
       color: Sequelize.STRING,
       sway: Sequelize.STRING,
       quadrants: Sequelize.STRING,
+      lusii: Sequelize.STRING,
     },
   },
 };

@@ -17,6 +17,8 @@ module.exports = {
     .addStringOption((option) => option.setName("remove-blood").setDescription("Blood color to remove off the list"))
     .addStringOption((option) => option.setName("sway").setDescription("Adds your lunar sway"))
     .addBooleanOption((option) => option.setName("remove-sway").setDescription('If set to "True", will remove the lunar sway'))
+    .addStringOption((option) => option.setName("lusus").setDescription("Adds a lusus"))
+    .addStringOption((option) => option.setName("remove-species").setDescription("Lusus to remove off the list"))
     .addStringOption((option) => option.setName("matesprit").setDescription("Changes your matesprit(s)"))
     .addBooleanOption((option) => option.setName("remove-matesprits").setDescription('If set to "True", will remove all your matesprits'))
     .addStringOption((option) => option.setName("kismesis").setDescription("Changes your kismesis/es"))
@@ -135,7 +137,7 @@ module.exports = {
 
     // Blood
     if (blood != null) {
-      edited.push("Blood color");
+      edited.push("Blood colors");
       // fetch current and transform
       const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
       let currentList = userProfile.color.length == 0 ? [] : CSV.parse(userProfile.color).data[0];
@@ -147,7 +149,7 @@ module.exports = {
         return interaction.editReply("Did not edit any entry!");
       }
     } else if (remove_blood != null) {
-      edited.push("Blood color");
+      edited.push("Blood colors");
       // fetch current and transform
       const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
       let currentList = userProfile.color.length == 0 ? [] : CSV.parse(userProfile.color).data[0];
@@ -161,16 +163,42 @@ module.exports = {
 
     // Sway
     if (sway != null) {
-      edited.push("Lunar sway");
+      edited.push("Lunar sways");
       // update
       const affectedRows = await HomestuckProfile.update({ sway: sway }, { where: { user: interaction.user.id } });
       if (affectedRows < 1) {
         return interaction.editReply("Did not edit any entry!");
       }
     } else if (remove_sway) {
-      edited.push("Lunar sway");
+      edited.push("Lunar sways");
       // update
       const affectedRows = await HomestuckProfile.update({ sway: "" }, { where: { user: interaction.user.id } });
+      if (affectedRows < 1) {
+        return interaction.editReply("Did not edit any entry!");
+      }
+    }
+
+    // Lusii
+    if (lusus != null) {
+      edited.push("Lusii");
+      // fetch current and transform
+      const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
+      let currentList = userProfile.lusii.length == 0 ? [] : CSV.parse(userProfile.lusii).data[0];
+      currentList.push(lusus);
+      const finalList = CSV.unparse([currentList]);
+      // update
+      const affectedRows = await HomestuckProfile.update({ lusii: finalList }, { where: { user: interaction.user.id } });
+      if (affectedRows < 1) {
+        return interaction.editReply("Did not edit any entry!");
+      }
+    } else if (remove_lusus != null) {
+      edited.push("Lusii");
+      // fetch current and transform
+      const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
+      let currentList = userProfile.lusii.length == 0 ? [] : CSV.parse(userProfile.lusii).data[0];
+      const finalList = CSV.unparse([currentList.filter((e) => e != remove_lusus)]);
+      // update
+      const affectedRows = await HomestuckProfile.update({ lusii: finalList }, { where: { user: interaction.user.id } });
       if (affectedRows < 1) {
         return interaction.editReply("Did not edit any entry!");
       }
