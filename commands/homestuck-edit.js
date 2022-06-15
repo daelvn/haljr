@@ -18,7 +18,7 @@ module.exports = {
     .addStringOption((option) => option.setName("sway").setDescription("Adds your lunar sway"))
     .addBooleanOption((option) => option.setName("remove-sway").setDescription('If set to "True", will remove the lunar sway'))
     .addStringOption((option) => option.setName("lusus").setDescription("Adds a lusus"))
-    .addStringOption((option) => option.setName("remove-species").setDescription("Lusus to remove off the list"))
+    .addStringOption((option) => option.setName("remove-lusus").setDescription("Lusus to remove off the list"))
     .addStringOption((option) => option.setName("matesprit").setDescription("Changes your matesprit(s)"))
     .addBooleanOption((option) => option.setName("remove-matesprits").setDescription('If set to "True", will remove all your matesprits'))
     .addStringOption((option) => option.setName("kismesis").setDescription("Changes your kismesis/es"))
@@ -37,6 +37,8 @@ module.exports = {
     const remove_blood = interaction.options.getString("remove-blood");
     const sway = interaction.options.getString("sway");
     const remove_sway = interaction.options.getBoolean("remove-sway");
+    const lusus = interaction.options.getString("lusus");
+    const remove_lusus = interaction.options.getString("remove-lusus");
     const matesprit = interaction.options.getString("matesprit");
     const remove_matesprits = interaction.options.getBoolean("remove-matesprits");
     const kismesis = interaction.options.getString("kismesis");
@@ -63,6 +65,7 @@ module.exports = {
           species: "",
           color: "",
           sway: "",
+          lusii: "",
           quadrants: "",
         });
       } catch (error) {
