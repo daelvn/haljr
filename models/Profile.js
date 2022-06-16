@@ -9,6 +9,7 @@ module.exports = {
         type: Sequelize.STRING,
         unique: true,
       },
+      description: Sequelize.TEXT,
       genders: Sequelize.STRING,
       sexualities: Sequelize.STRING,
       pronouns: Sequelize.STRING,
