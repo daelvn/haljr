@@ -1,6 +1,9 @@
 # Config
 config.json
 
+# Images
+img
+
 # Logs
 logs
 *.log
