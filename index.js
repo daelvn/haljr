@@ -11,6 +11,10 @@ const dayjs = require("dayjs");
 // Node scheduler
 const schedule = require("node-schedule");
 
+// Setup segfault handler
+const SegfaultHandler = require("segfault-handler");
+SegfaultHandler.registerHandler("crash.log");
+
 // Require the necessary discord.js classes
 const { Client, Intents, Collection } = require("discord.js");
 const { token, guildId } = require("./config.json");
@@ -32,22 +36,16 @@ const sql = new Sequelize("database", "user", "password", {
 // Instantiate all models
 client.models = new Collection();
 const modelsPath = path.join(__dirname, "models");
-const modelFiles = fs
-  .readdirSync(modelsPath)
-  .filter((file) => file.endsWith(".js"));
+const modelFiles = fs.readdirSync(modelsPath).filter((file) => file.endsWith(".js"));
 
 for (const file of modelFiles) {
   const filePath = path.join(modelsPath, file);
   const model = require(filePath);
 
   let sqldef = sql.define(model.data.name.toLowerCase(), model.data.schema);
-  console.log(
-    `Adding model: ${model.data.name} -> ${typeof sqldef} (${typeof sql})`
-  );
+  console.log(`Adding model: ${model.data.name} -> ${typeof sqldef} (${typeof sql})`);
   client.models.set(model.data.name, sqldef);
-  console.log(
-    `Set: ${model.data.name} = ${client.models.get(model.data.name)}`
-  );
+  console.log(`Set: ${model.data.name} = ${client.models.get(model.data.name)}`);
 }
 
 // Globalize scheduler
@@ -57,9 +55,7 @@ client.scheduled = new Collection();
 // Add a commands collection
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, "commands");
-const commandFiles = fs
-  .readdirSync(commandsPath)
-  .filter((file) => file.endsWith(".js"));
+const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith(".js"));
 
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
@@ -71,9 +67,7 @@ for (const file of commandFiles) {
 
 // Load events
 const eventsPath = path.join(__dirname, "events");
-const eventFiles = fs
-  .readdirSync(eventsPath)
-  .filter((file) => file.endsWith(".js"));
+const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith(".js"));
 
 for (const file of eventFiles) {
   const filePath = path.join(eventsPath, file);
