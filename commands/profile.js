@@ -102,7 +102,7 @@ module.exports = {
         replyEmbed.addField("Flags", "(none)", true);
       } else {
         // Create canvas
-        const columns = 5;
+        const columns = 4;
         const rows = Math.ceil(currentList.length / columns);
         const flagSizeW = 128;
         const flagSizeH = 64;
