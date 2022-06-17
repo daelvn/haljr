@@ -4,6 +4,9 @@ config.json
 # Images
 img
 
+# Database snapshots
+db
+
 # Logs
 logs
 *.log
