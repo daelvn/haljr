@@ -122,9 +122,10 @@ module.exports = {
           const posY = vpos * padding + (vpos - 1) * flagSizeH; // vertical first pixel position
           // convert base64 to buffer then to image
           const asBuffer = Buffer.from(el, "base64");
-          const flagPath = `img/cache-${userProfile.id}-${i}.png`;
-          fs.writeFileSync(flagPath, asBuffer);
-          elImg.src = fs.readFileSync(flagPath);
+          //const flagPath = `img/cache-${userProfile.id}-${i}.png`;
+          //fs.writeFileSync(flagPath, asBuffer);
+          //elImg.src = fs.readFileSync(flagPath);
+          elImg.src = asBuffer;
           // set onload
           elImg.onload = (ctx) => replyCanvasContext.drawImage(elImg, posX, posY);
           return elImg;
