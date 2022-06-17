@@ -22,6 +22,15 @@ const { token, guildId } = require("./config.json");
 // Create a new client instance
 const client = new Client({
   intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MEMBERS],
+  presence: {
+    status: "online",
+    activities: [
+      {
+        name: "with your mother, bro.",
+        type: "PLAYING",
+      },
+    ],
+  },
 });
 
 // Connect a database
