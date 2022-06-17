@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed, Permissions } = require("discord.js");
+const { MessageEmbed, Collection } = require("discord.js");
 const CSV = require("papaparse");
 
 module.exports = {
@@ -10,12 +10,13 @@ module.exports = {
   async execute(interaction) {
     // fetch all variables
     let user = interaction.options.getUser("user");
-    console.log(`User: ${user.tag}`);
+    //console.log(`User: ${user.tag}`);
     if (!user) {
       user = interaction.user;
     }
     console.log(`Final user: ${user.tag}`);
     const HomestuckProfiles = interaction.client.models.get("HomestuckProfiles");
+    const Profiles = interaction.client.models.get("Profiles");
 
     // Defer reply
     await interaction.deferReply();
@@ -33,6 +34,23 @@ module.exports = {
           sway: "",
           lusii: "",
           quadrants: "",
+        });
+      } catch (error) {
+        return interaction.editReply(`Something went wrong while creating a Homestuck profile. ${error.name}: ${error.message}`);
+      }
+    }
+    const commonUserEntry = await Profiles.findOne({ raw: true, where: { user: user.id } });
+    console.log(commonUserEntry);
+    if (!commonUserEntry) {
+      try {
+        Profiles.create({
+          user: user.id,
+          description: "",
+          genders: "",
+          sexualities: "",
+          pronouns: "",
+          flags: "",
+          kins: "",
         });
       } catch (error) {
         return interaction.editReply(`Something went wrong while creating a profile. ${error.name}: ${error.message}`);
@@ -107,6 +125,33 @@ module.exports = {
       replyEmbed.addField("Quadrants", finalList.join("\n"), true);
     } catch (error) {
       return interaction.editReply(`Something went wrong while fetching profile data. ${error.name}: ${error.message}`);
+    }
+
+    // Kins
+    console.log("Kins");
+    try {
+      // Process kinlist
+      let kinlist = new Collection();
+      let kinCurrentList = commonUserEntry.kins.length == 0 ? [] : CSV.parse(commonUserEntry.kins).data;
+
+      for (const [kin, media] of kinCurrentList) {
+        // create media list if it does not exist
+        if (!kinlist.get(media)) {
+          kinlist.set(media, []);
+        }
+        // get list and push
+        let mediaList = kinlist.get(media);
+        mediaList.push(kin);
+        // resave list
+        kinlist.set(media, mediaList);
+      }
+
+      if (kinlist.get("Homestuck")) {
+        let homestuckKinList = kinlist.get("Homestuck");
+        replyEmbed.addField("Kins", homestuckKinList.join("\n"), true);
+      }
+    } catch (error) {
+      return interaction.editReply(`Something went wrong while fetching kin data. ${error.name}: ${error.message}`);
     }
 
     // Send embed
