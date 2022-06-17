@@ -50,7 +50,7 @@ const HELP = {
       "Create a new role with `/role-create name:Role Name hex:000000`. Evaluate the last role request with `/check-role-requests` in the admin channel."
     ),
   homestuck: new MessageEmbed()
-    .setTitle("Kin roles")
+    .setTitle("Homestuck")
     .setColor("#e00707")
     .setThumbnail(`https://cdn.discordapp.com/avatars/${clientId}/${avatarId}.jpeg`)
     .setDescription("The brackets (`[` and `]`) represent *optional* arguments.")
