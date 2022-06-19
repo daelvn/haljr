@@ -8,6 +8,22 @@ exec("git config pull.rebase false", (err, stdout, stderr) => {
   console.log(`${stdout}`);
 });
 
+exec('git config --global user.email "daelvn@gmail.com"', (err, stdout, stderr) => {
+  if (err) {
+    console.error(`exec error: ${err}`);
+    return;
+  }
+  console.log(`${stdout}`);
+});
+
+exec('git config --global user.name "Dáel Muñiz"', (err, stdout, stderr) => {
+  if (err) {
+    console.error(`exec error: ${err}`);
+    return;
+  }
+  console.log(`${stdout}`);
+});
+
 exec("git add .", (err, stdout, stderr) => {
   if (err) {
     console.error(`exec error: ${err}`);
