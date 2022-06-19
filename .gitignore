@@ -6,6 +6,7 @@ img
 
 # Database snapshots
 db
+yyhy.sqlite
 
 # Logs
 logs
