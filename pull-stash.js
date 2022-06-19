@@ -8,7 +8,7 @@ exec("git config pull.rebase false", (err, stdout, stderr) => {
   console.log(`${stdout}`);
 });
 
-exec("git stash", (err, stdout, stderr) => {
+exec("git add . && git stash", (err, stdout, stderr) => {
   if (err) {
     console.error(`exec error: ${err}`);
     return;
