@@ -75,6 +75,7 @@ module.exports = {
     // Classpect
     console.log("Classpect");
     try {
+      // FIXME theres an error here
       let currentList = userProfile.classpects.length == 0 ? ["(none)"] : CSV.parse(userProfile.classpects).data[0];
       replyEmbed.addField("Classpects", currentList.join("\n"), true);
     } catch (error) {
