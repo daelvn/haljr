@@ -16,6 +16,14 @@ exec("git add .", (err, stdout, stderr) => {
   console.log(`${stdout}`);
 });
 
+exec("git commit -m 'Cloud push'", (err, stdout, stderr) => {
+  if (err) {
+    console.error(`exec error: ${err}`);
+    return;
+  }
+  console.log(`${stdout}`);
+});
+
 exec("git push origin main --force", (err, stdout, stderr) => {
   if (err) {
     console.error(`exec error: ${err}`);
