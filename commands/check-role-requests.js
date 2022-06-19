@@ -82,7 +82,10 @@ module.exports = {
             .setColor(`#${newRoleHex}`)
             .setTitle("A new role has been created!")
             .setDescription(`Created role ${newRoleName} with color #${newRoleHex}`);
-          await interaction.editReply({ embeds: [replyEmbed] });
+          // disable buttons
+          replyButtons.components[0].setDisabled(true);
+          replyButtons.components[1].setDisabled(true);
+          await interaction.editReply({ embeds: [replyEmbed], components: [replyButtons] });
         } catch (error) {
           return interaction.editReply(`Something went wrong with the command. Could not delete role request. ${error.name}: ${error.message}`);
         }
@@ -93,18 +96,15 @@ module.exports = {
             .setColor(`#${newRoleHex}`)
             .setTitle("The role you requested has been created!")
             .setDescription(`Created role ${newRoleName} with color #${newRoleHex}`);
-          let requestMember = interaction.guild.members.resolve(requestUsername);
-          await requestMember
-            .send({ embeds: [dmEmbed] })
-            .then(console.log)
-            .catch(console.error);
+          interaction.guild.members.fetch(requestUsername).then((requestMember) => {
+            requestMember
+              .send({ embeds: [dmEmbed] })
+              .then(console.log)
+              .catch(console.error);
+          });
         } catch (error) {
           return interaction.editReply(`Something went wrong with the command. Could not send DM to user. ${error.name}: ${error.message}`);
         }
-
-        // disable buttons
-        replyButtons.components[0].setDisabled(true);
-        replyButtons.components[1].setDisabled(true);
       } else if (i.customId == "role-deny") {
         try {
           // delete role request
@@ -116,7 +116,10 @@ module.exports = {
             .setColor(`#${newRoleHex}`)
             .setTitle("The role request has been denied!")
             .setDescription(`Did not create role ${newRoleName} with color #${newRoleHex}`);
-          await interaction.editReply({ embeds: [replyEmbed] });
+          // disable buttons
+          replyButtons.components[0].setDisabled(true);
+          replyButtons.components[1].setDisabled(true);
+          await interaction.editReply({ embeds: [replyEmbed], components: [replyButtons] });
         } catch (error) {
           return interaction.editReply(`Something went wrong with the command. Could not delete role request. ${error.name}: ${error.message}`);
         }
@@ -127,18 +130,18 @@ module.exports = {
             .setColor(`#ff0000`)
             .setTitle("The role you requested was not created!")
             .setDescription(`The admins of YYHY denied your request to create a new role.`);
-          let requestMember = interaction.guild.members.resolve(requestUsername);
-          await requestMember.send({ embeds: [dmEmbed] });
+          interaction.guild.members.fetch(requestUsername).then((requestMember) => {
+            requestMember
+              .send({ embeds: [dmEmbed] })
+              .then(console.log)
+              .catch(console.error);
+          });
         } catch (error) {
           return interaction.editReply(`Something went wrong with the command. Could not send DM to user. ${error.name}: ${error.message}`);
         }
       } else {
         return interaction.editReply("Unknown custom ID received! " + i.customId);
       }
-
-      // disable buttons
-      replyButtons.components[0].setDisabled(true);
-      replyButtons.components[1].setDisabled(true);
     });
 
     collector.on("end", (collected) => {
