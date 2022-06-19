@@ -25,11 +25,11 @@ module.exports = {
     await interaction.deferReply();
 
     // Create entry for user if it does not exist
-    const userEntry = await Profiles.findOne({ raw: true, where: { user: user.id } });
+    let userEntry = await Profiles.findOne({ raw: true, where: { user: user.id } });
     console.log(userEntry);
     if (!userEntry) {
       try {
-        Profiles.create({
+        userEntry = Profiles.create({
           user: user.id,
           description: "",
           genders: "",

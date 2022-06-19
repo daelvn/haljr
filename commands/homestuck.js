@@ -22,11 +22,11 @@ module.exports = {
     await interaction.deferReply();
 
     // Create entry for user if it does not exist
-    const userEntry = await HomestuckProfiles.findOne({ raw: true, where: { user: user.id } });
+    let userEntry = await HomestuckProfiles.findOne({ raw: true, where: { user: user.id } });
     console.log(userEntry);
     if (!userEntry) {
       try {
-        HomestuckProfiles.create({
+        userEntry = HomestuckProfiles.create({
           user: user.id,
           classpects: "",
           species: "",
@@ -39,11 +39,11 @@ module.exports = {
         return interaction.editReply(`Something went wrong while creating a Homestuck profile. ${error.name}: ${error.message}`);
       }
     }
-    const commonUserEntry = await Profiles.findOne({ raw: true, where: { user: user.id } });
+    let commonUserEntry = await Profiles.findOne({ raw: true, where: { user: user.id } });
     console.log(commonUserEntry);
     if (!commonUserEntry) {
       try {
-        Profiles.create({
+        commonUserEntry = Profiles.create({
           user: user.id,
           description: "",
           genders: "",
