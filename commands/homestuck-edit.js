@@ -80,10 +80,10 @@ module.exports = {
     if (classpect != null) {
       edited.push("Classpects");
       // test format
-      const classpectFormat = new RegExp(`(${CLASSES.join("|")}) of (${ASPECTS.join("|")})`);
-      if (!classpectFormat.test(classpect)) {
-        return interaction.editReply("Classpect is not in the format `Class of Aspect` or is not a valid classpect!");
-      }
+      // const classpectFormat = new RegExp(`(${CLASSES.join("|")}) of (${ASPECTS.join("|")})`);
+      // if (!classpectFormat.test(classpect)) {
+      //   return interaction.editReply("Classpect is not in the format `Class of Aspect` or is not a valid classpect!");
+      // }
       // fetch current and transform
       const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
       let currentList = userProfile.classpects.length == 0 ? [] : CSV.parse(userProfile.classpects).data[0];
@@ -97,10 +97,10 @@ module.exports = {
     } else if (remove_classpect != null) {
       edited.push("Classpects");
       // test format
-      const classpectFormat = new RegExp(`(${CLASSES.join("|")}) of (${ASPECTS.join("|")})`);
-      if (!classpectFormat.test(remove_classpect)) {
-        return interaction.editReply("Classpect is not in the format `Class of Aspect` or is not a valid classpect!");
-      }
+      // const classpectFormat = new RegExp(`(${CLASSES.join("|")}) of (${ASPECTS.join("|")})`);
+      // if (!classpectFormat.test(remove_classpect)) {
+      //   return interaction.editReply("Classpect is not in the format `Class of Aspect` or is not a valid classpect!");
+      // }
       // fetch current and transform
       const userProfile = await HomestuckProfile.findOne({ raw: true, where: { user: interaction.user.id } });
       let currentList = userProfile.classpects.length == 0 ? [] : CSV.parse(userProfile.classpects).data[0];
