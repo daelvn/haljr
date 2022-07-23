@@ -10,6 +10,7 @@ module.exports = {
     const botRole = interaction.guild.roles.botRoleFor(currentUser);
 
     interaction.guild.roles.fetch().then((roles) => {
+      var pages = [];
       let rolemap = roles
         .sort((a, b) => b.position - a.position)
         .map((r) => r)
@@ -17,7 +18,15 @@ module.exports = {
         .filter((r) => r.position > finalRole.position) // list end
         .filter((r) => /in the flesh/g.test(r.name)) // has "in the flesh"
         .join("\n");
-      if (rolemap.length > 1024) rolemap = "Too many roles to display";
+      if (rolemap.length > 1024) {
+        let parts = rolemap.match(/[\s\S]{1,920}/gm);
+        console.log(`Rolemap length (${rolemap.length}) vs. 920s (${parts.length})`);
+        for (let [n, part] of parts.entries()) {
+          pages.push(new MessageEmbed().addField(`Kin Role List (page ${n + 1}/${parts.length})`, part));
+        }
+        const buttonPaginator = new ButtonPaginator(interaction, { pages });
+        return buttonPaginator.send();
+      }
       if (!rolemap) rolemap = "No roles";
 
       const replyEmbed = new MessageEmbed()
