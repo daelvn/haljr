@@ -15,7 +15,7 @@ module.exports = {
     try {
       const RoleRequests = interaction.client.models.get("RoleRequests");
       const roleRequest = await RoleRequests.create({
-        name: roleName + " in the flesh",
+        name: roleName.toLowerCase() + " in the flesh",
         hex: roleColor,
         username: interaction.user.id,
       });
@@ -24,7 +24,7 @@ module.exports = {
       const replyEmbed = new MessageEmbed()
         .setColor(`#${roleRequest.hex}`)
         .setTitle("Your kin role has been requested!")
-        .setDescription(`Requested kin role for ${roleName} with color #${roleRequest.hex}`);
+        .setDescription(`Requested kin role for ${roleName.toLowerCase()} with color #${roleRequest.hex}`);
       await interaction.reply({ embeds: [replyEmbed] });
     } catch (error) {
       await interaction.reply(`Something went wrong with the role request. ${error.name}: ${error.message}`);
