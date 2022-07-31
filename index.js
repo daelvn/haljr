@@ -17,7 +17,7 @@ SegfaultHandler.registerHandler("crash.log");
 
 // Require the necessary discord.js classes
 const { Client, Intents, Collection } = require("discord.js");
-const { token, guildId } = require("./config.json");
+const { token } = require("./config.json");
 
 // Create a new client instance
 const client = new Client({
