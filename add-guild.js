@@ -6,9 +6,11 @@ const configLocation = "./config.json";
 const config = require(configLocation);
 
 var guildId = readline.question("What is the ID of the guild? ");
+var guildName = readline.question("What is the alias of the guild? ");
 var endOfRoles = readline.question("What is the role ID of the role delimiter? ");
 
-config.servers[guildId] = {
+config.guilds[guildId] = {
+  name: guildName,
   endOfRoles: endOfRoles,
 };
 
