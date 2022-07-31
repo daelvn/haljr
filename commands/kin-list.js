@@ -1,12 +1,12 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, Permissions } = require("discord.js");
-const { endOfRoles, roleRelativePosition } = require("../config.json");
+const { guilds, roleRelativePosition } = require("../config.json");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("kin-list").setDescription("Lists all available kins"),
   async execute(interaction) {
     const currentUser = interaction.guild.client.user;
-    const finalRole = interaction.guild.roles.resolve(endOfRoles);
+    const finalRole = interaction.guild.roles.resolve(guilds[interaction.guildId].endOfRoles);
     const botRole = interaction.guild.roles.botRoleFor(currentUser);
 
     interaction.guild.roles.fetch().then((roles) => {

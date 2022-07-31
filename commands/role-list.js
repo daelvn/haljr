@@ -1,13 +1,13 @@
 const { SlashCommandBuilder } = require("@discordjs/builders");
 const { MessageEmbed, Permissions } = require("discord.js");
-const { endOfRoles, roleRelativePosition } = require("../config.json");
+const { guilds, roleRelativePosition } = require("../config.json");
 const { ButtonPaginator } = require("@psibean/discord.js-pagination");
 
 module.exports = {
   data: new SlashCommandBuilder().setName("role-list").setDescription("Lists all available roles"),
   async execute(interaction) {
     const currentUser = interaction.guild.client.user;
-    const finalRole = interaction.guild.roles.resolve(endOfRoles);
+    const finalRole = interaction.guild.roles.resolve(guilds[interaction.guildId].endOfRoles);
     const botRole = interaction.guild.roles.botRoleFor(currentUser);
 
     await interaction.deferReply();
@@ -34,7 +34,7 @@ module.exports = {
 
       const replyEmbed = new MessageEmbed().addField("Role List", rolemap);
 
-      return interaction.reply({ embeds: [replyEmbed] });
+      return interaction.editReply({ embeds: [replyEmbed] });
     });
   },
 };
