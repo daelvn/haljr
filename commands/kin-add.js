@@ -19,7 +19,7 @@ module.exports = {
 
     // check that role is within bounds
     if (
-      role.position > interaction.guild.roles.resolve("982715881287188501").position &&
+      role.position > interaction.guild.roles.resolve(guilds[interaction.guildId].endOfRoles).position &&
       role.position < interaction.guild.roles.botRoleFor(currentUser).position - 1
     ) {
       interaction.member.roles.add(role);
