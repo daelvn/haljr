@@ -4,7 +4,7 @@ const { MessageEmbed, Permissions } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("kin-request")
-    .setDescription("Requests the creation of a kin role to the YYHY admins")
+    .setDescription("Requests the creation of a kin role to the admins")
     .addStringOption((option) => option.setName("name").setDescription("Name of the character you kin.").setRequired(true))
     .addStringOption((option) => option.setName("hex").setDescription("HEX color for the requested role.").setRequired(true)),
   async execute(interaction) {

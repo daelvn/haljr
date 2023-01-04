@@ -16,7 +16,7 @@ exec("git config pull.rebase false", (err, stdout, stderr) => {
   console.log(`${stdout}`);
 });
 
-exec("git remote add origin https://github.com/daelvn/yyhybot", (err, stdout, stderr) => {
+exec("git remote add origin https://github.com/daelvn/haljr", (err, stdout, stderr) => {
   if (err) {
     console.error(`exec error: ${err}`);
     return;

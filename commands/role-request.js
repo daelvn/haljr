@@ -4,7 +4,7 @@ const { MessageEmbed, Permissions } = require("discord.js");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("role-request")
-    .setDescription("Requests the creation of a role to the YYHY admins")
+    .setDescription("Requests the creation of a role to the haljr admins")
     .addStringOption((option) => option.setName("name").setDescription("Name for the requested role.").setRequired(true))
     .addStringOption((option) => option.setName("hex").setDescription("HEX color for the requested role.").setRequired(true)),
   async execute(interaction) {

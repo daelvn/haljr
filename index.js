@@ -39,7 +39,7 @@ const sql = new Sequelize("database", "user", "password", {
   dialect: "sqlite",
   logging: false,
   // SQLite only
-  storage: "yyhy.sqlite",
+  storage: "haljr.sqlite",
 });
 
 // Instantiate all models

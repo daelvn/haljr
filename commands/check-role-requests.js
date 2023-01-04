@@ -64,7 +64,7 @@ module.exports = {
             name: newRoleName,
             color: newRoleHex,
             hoist: true,
-            reason: "Created by YYHY^3 Admins as a Role Request",
+            reason: "Created by Admins as a Role Request",
             // position:
             position: interaction.guild.roles.botRoleFor(currentUser).position - 1,
           });
@@ -129,7 +129,7 @@ module.exports = {
           const dmEmbed = new MessageEmbed()
             .setColor(`#ff0000`)
             .setTitle("The role you requested was not created!")
-            .setDescription(`The admins of YYHY denied your request to create a new role.`);
+            .setDescription(`The admins of haljr denied your request to create a new role.`);
           interaction.guild.members.fetch(requestUsername).then((requestMember) => {
             requestMember
               .send({ embeds: [dmEmbed] })
