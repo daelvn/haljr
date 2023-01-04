@@ -1,5 +1,5 @@
 {
-  "name": "yyhybot",
+  "name": "haljr",
   "version": "1.0.0",
   "description": "A bot for a discord server.",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daelvn/yyhybot.git"
+    "url": "git+https://github.com/daelvn/haljr.git"
   },
   "keywords": [
     "discord",
@@ -18,9 +18,9 @@
   "author": "Dáel Muñiz",
   "license": "Unlicense",
   "bugs": {
-    "url": "https://github.com/daelvn/yyhybot/issues"
+    "url": "https://github.com/daelvn/haljr/issues"
   },
-  "homepage": "https://github.com/daelvn/yyhybot#readme",
+  "homepage": "https://github.com/daelvn/haljr#readme",
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",

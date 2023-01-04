@@ -1,6 +1,6 @@
-# YYHYBot
+# Lil Hal Jr
 
-Discord bot for YYHY^3
+Discord bot for several servers
 
 # Setup
 
